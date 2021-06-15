@@ -37,7 +37,7 @@ def main(path):
             print(f"> Found {cnt:,} emtpy directories.")
             print(f"> Results written to: \033[96m{os.path.abspath(outfile)}\033[0m")
         else:
-            print(f"> Found no emtpy directories.")
+            print("> Found no emtpy directories.")
     except KeyboardInterrupt:
         os.remove(outfile)  # remove unfinished output file
         sys.exit("\033[92m> Script Terminated!\033[0m")
