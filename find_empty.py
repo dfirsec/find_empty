@@ -39,9 +39,10 @@ def main(path):
         else:
             print(f"> Found no emtpy directories.")
     except KeyboardInterrupt:
-        f.close()
         os.remove(outfile)  # remove unfinished output file
         sys.exit("\033[92m> Script Terminated!\033[0m")
+    finally:
+        f.close()
 
 
 if __name__ == "__main__":
