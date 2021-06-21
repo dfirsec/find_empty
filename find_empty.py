@@ -9,7 +9,9 @@ __description__ = "Find empty directories"
 try:
     from tqdm import tqdm
 except ImportError:
-    sys.exit("\n\033[91m[ERROR]\033[0m Please install tqdm: 'pip install tqdm --user'\n")
+    sys.exit(
+        "\n\033[91m[ERROR]\033[0m Please install tqdm: 'pip install tqdm --user'\n"
+    )
 
 
 def main(dirpath):
@@ -21,7 +23,9 @@ def main(dirpath):
     try:
         cnt = 0
         for root, dirs, files in tqdm(
-            os.walk(dirpath, topdown=True), desc="\033[33m> Scanning for empty directories\033[0m", unit=" files"
+            os.walk(dirpath, topdown=True),
+            desc="\033[33m> Scanning for empty directories\033[0m",
+            unit=" files",
         ):
             dirs[:] = [d for d in dirs if not d.startswith(".") and d not in exclude]
             if len(files) == 0 and len(dirs) == 0:
