@@ -30,8 +30,8 @@ def main(dirpath):
                 """ CAUTION: Uncomment 4 lines below to remove empty dirs """
                 # try:
                 #     Path.rmdir(dirpath)
-                # except OSError:
-                #     continue
+                # except OSError as e:
+                #     print(f'Error: {dirpath} : {e.strerror}')
         if cnt:
             print(f"> Found {cnt:,} emtpy directories.")
             with open(outfile, "w") as f:
