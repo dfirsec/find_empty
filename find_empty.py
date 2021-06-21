@@ -16,8 +16,8 @@ def main(dirpath):
     parent = Path(__file__).resolve().parent
     outfile = parent.joinpath("empty_dirs.txt")
     exclude = {"Windows", "Desktop"}
+    empty = []
 
-    f = open(outfile, "w")
     try:
         cnt = 0
         for root, dirs, files in tqdm(
@@ -25,24 +25,24 @@ def main(dirpath):
         ):
             dirs[:] = [d for d in dirs if not d.startswith(".") and d not in exclude]
             if len(files) == 0 and len(dirs) == 0:
+                empty.append(root)
                 cnt += 1
-                f.write(root + "\n")
                 # # CAUTION: Uncomment 4 lines below to remove empty dirs
                 # try:
                 #     Path.rmdir(dirpath)
                 # except OSError:
                 #     continue
-        f.close()
         if cnt:
             print(f"> Found {cnt:,} emtpy directories.")
+            with open(outfile, "w") as f:
+                for p in empty:
+                    f.write(p + "\n")
             print(f"> Results written to: \033[96m{Path(outfile).resolve()}\033[0m")
         else:
             print("> Found no emtpy directories.")
     except KeyboardInterrupt:
         os.remove(outfile)  # remove unfinished output file
         sys.exit("\033[92m> Script Terminated!\033[0m")
-    finally:
-        f.close()
 
 
 if __name__ == "__main__":
