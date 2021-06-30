@@ -1,6 +1,6 @@
 # Find Empty
 
-[![DeepSource](https://deepsource.io/gh/dfirsec/find_empty.svg/?label=active+issues&show_trend=true&token=5vwImxxOr2Gu9OcEd2AkrKwf)](https://deepsource.io/gh/dfirsec/find_empty/?ref=repository-badge) ![Generic badge](https://img.shields.io/badge/python-3.8-blue.svg) [![Twitter](https://img.shields.io/badge/Twitter-@pulsecode-blue.svg)](https://twitter.com/pulsecode)
+![Generic badge](https://img.shields.io/badge/python-3.8-blue.svg) [![Twitter](https://img.shields.io/badge/Twitter-@pulsecode-blue.svg)](https://twitter.com/pulsecode)
 
 Python script to scan for empty directories.
 
