@@ -27,7 +27,7 @@ def main(dirpath):
             if len(files) == 0 and len(dirs) == 0:
                 empty.append(root)
                 cnt += 1
-                """ CAUTION: Uncomment 4 lines below to remove empty dirs """
+                ## CAUTION: Uncomment 4 lines below to remove empty dirs
                 # try:
                 #     Path.rmdir(dirpath)
                 # except OSError as e:
