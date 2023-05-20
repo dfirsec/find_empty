@@ -42,13 +42,15 @@ poetry shell
 python find_empty.py <Directory path to scan>
 ```
 
+> Replace \<Directory path to scan> with the path to the directory you want to scan for empty directories.
+
 3. Exit the program when done.
 
 ```text
 exit
 ```
 
-> Replace \<Directory path to scan> with the path to the directory you want to scan for empty directories.
+
 
 ### Options
 
