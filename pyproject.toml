@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "find-empty"
+version = "0.1.0"
+description = "Recursively scans a source for empty directories"
+authors = ["Mitch Haddadi <12067255+dfirsec@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "find_empty"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+tqdm = "^4.65.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
