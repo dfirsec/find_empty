@@ -25,6 +25,8 @@ cd find_empty
 3. Install the required dependencies using poetry:
 
 ```text
+pip install poetry
+
 poetry install
 ```
 
