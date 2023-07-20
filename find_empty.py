@@ -8,6 +8,7 @@ from operator import itemgetter
 from pathlib import Path
 
 from rich.console import Console
+from rich.prompt import Confirm
 from rich.table import Table
 from rich.traceback import install
 
@@ -106,10 +107,10 @@ def print_results(empty_dirs_dict: dict, empty_dirs: list) -> None:
     console.print(table)
 
     try:
-        ask = console.input("\n:question: Shall I remove the empty directories? [y/n]")
-        if ask.lower() == "y":
-            confirm = console.input(":thinking_face: [yellow]Are you sure?[/yellow] [y/n]")
-            if confirm.lower() == "y":
+        ask = Confirm.ask("\n:thinking_face: Shall I remove the empty directories?", default=False)
+        if ask:
+            confirm = Confirm.ask(":worried: Are you sure?", default=False)
+            if confirm:
                 for dirpath in empty_dirs:
                     console.print(f"  :boom: Removing empty directory: {dirpath}")
                     remove_dir(Path(dirpath))
