@@ -9,8 +9,7 @@ packages = [{include = "find_empty"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-tqdm = "^4.65.0"
-
+rich = "^13.7.1"
 
 [build-system]
 requires = ["poetry-core"]
