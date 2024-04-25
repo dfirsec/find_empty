@@ -6,7 +6,7 @@ Python script to to recursively scan a directory and find empty directories with
 
 ## Prerequisites
 
-Python 3.x
+Python 3.11
 
 ## Installation
 
