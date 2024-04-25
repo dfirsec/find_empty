@@ -16,8 +16,6 @@ install(show_locals=True)
 console = Console(highlight=False)
 
 
-
-
 def parse_arguments() -> tuple[Path, set[str]]:
     """Parse command-line arguments."""
     parser = ArgumentParser(description="Scan for empty directories.")
