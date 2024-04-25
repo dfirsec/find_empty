@@ -74,7 +74,7 @@ This command will scan the /path/to/directory directory for empty directories, e
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or have suggestions for improvement, please create an issue or submit a pull request.
+If you find any issues or have suggestions for improvement, please create an issue or submit a pull request.
 
 ## License
 
