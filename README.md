@@ -1,80 +1,94 @@
-# Find Empty
+# Clean Empty Directories
 
-![Generic badge](https://img.shields.io/badge/python-3.8-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.15-blue.svg)
 
-Python script to to recursively scan a directory and find empty directories within it. It generates a list of empty directory paths and writes them to a text file named `empty_dirs.txt`.
+Find empty directories, preview their removal, and delete them after confirmation. The script writes text and CSV reports and can remove eligible parent directories that become empty. It preserves the scan root.
 
 ## Prerequisites
 
-Python 3.11
+- Python 3.15 with support for lazy imports and built-in `frozendict`.
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) for environment and dependency management.
 
 ## Installation
 
-1. Clone the repository:
+Clone the repository:
 
-```text
-git clone https://github.com/dfirsec/find_empty.git
+```console
+git clone https://github.com/dfirsec/clean_empty_dirs.git
+cd clean_empty_dirs
 ```
 
-2. Navigate to the project directory:
+`uv run` handles the environment and installs `rich` on demand. Include `--python 3.15 --with rich` because the script does not yet declare these requirements.
 
-```text
-cd find_empty
-```
-
-3. Install the required dependencies using poetry:
-
-```text
-pip install poetry
-
-poetry install
-```
+If uv cannot locate or download a compatible Python version, install one and pass its executable path to `uv run --python`.
 
 ## Usage
 
-1. Create the virtual environment
+Start with a dry run:
 
-```text
-poetry shell
+```console
+uv run --python 3.15 --with rich clean_empty_dirs.py "path/to/directory" --dry-run
 ```
 
-2. Run the program
+Replace the quoted path with the directory to scan. A dry run asks for confirmation and previews deletions without removing directories.
 
-```text
-python find_empty.py <Directory path to scan>
+To remove empty directories, omit `--dry-run` and accept both confirmation prompts:
+
+```console
+uv run --python 3.15 --with rich clean_empty_dirs.py "path/to/directory"
 ```
 
-> Replace \<Directory path to scan> with the path to the directory you want to scan for empty directories.
+Use `uv run --python 3.15 --with rich clean_empty_dirs.py --help` to display all options.
 
-3. Exit the program when done.
+### Shorter commands with inline metadata
 
-```text
-exit
+To omit `--python 3.15 --with rich`, first add this metadata at the top of `clean_empty_dirs.py`:
+
+```python
+# /// script
+# requires-python = ">=3.15"
+# dependencies = ["rich"]
+# ///
 ```
 
+After adding that metadata, run:
 
+```console
+uv run clean_empty_dirs.py "path/to/directory" --dry-run
+```
+
+uv uses these declarations to select Python and install `rich`. See [uv's script documentation](https://docs.astral.sh/uv/guides/scripts/#declaring-script-dependencies).
 
 ### Options
 
---exclude \<Directory name>: Exclude a specific directory from the scanning process. You can use this option multiple times to exclude multiple directories.
+- `--include PATTERN [PATTERN ...]`: include directory names or glob patterns.
+- `--exclude PATTERN [PATTERN ...]`: prune matching directories during traversal; defaults to `Desktop` and `Windows`.
+- `--dry-run` / `--no-dry-run`: enable or disable deletion previews.
+- `--min-age DAYS`: set the minimum age of empty directories selected during scanning.
+- `--config PATH`: load JSON configuration.
+- `--log-level LEVEL`: choose `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`.
+- `--log-file PATH`: override the default `directory_removal_log.txt` log path.
+
+### Exclude directories
+
+List multiple names or patterns after one `--exclude` option:
+
+```console
+uv run --python 3.15 --with rich clean_empty_dirs.py "path/to/directory" --exclude Desktop Windows --dry-run
+```
 
 ## Output
 
-The program will scan the provided directory and display the progress using a progress bar. Once the scan is complete, it will generate a text file named empty_dirs.txt that contains the paths of all empty directories found during the scan.
+The script shows scan progress and lists empty directories. If it finds any, it writes these reports in the current working directory after processing finishes:
 
-If no empty directories are found, the program will display a message indicating that no empty directories were found.
+- `empty_dirs_log.txt`: paths found during scanning.
+- `empty_dirs_log.csv`: directory paths and removal statuses, including parents removed after becoming empty.
 
-## Example
-
-```text
-python find_empty.py /path/to/directory --exclude Desktop --exclude Windows
-```
-
-This command will scan the /path/to/directory directory for empty directories, excluding the directories named "Desktop" and "Windows". It will display the progress and generate the empty_dirs.txt file containing the paths of the empty directories.
+The script logs events to `directory_removal_log.txt`; use `--log-file` to choose another path. If it finds no empty directories, it prints a message and skips both reports.
 
 ## Contributing
 
-If you find any issues or have suggestions for improvement, please create an issue or submit a pull request.
+Report bugs in an issue or submit a pull request. See [Repository Guidelines](AGENTS.md) for setup, coding conventions, and checks to run before submitting changes.
 
 ## License
 
